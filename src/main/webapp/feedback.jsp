@@ -11,8 +11,8 @@
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating mb-3">
-      <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input name="phone" type="phone" class="form-control" id="floatingPhone" placeholder="Phone">
+      <label for="floatingPhone">Phone</label>
     </div>
     <div class="form-floating mb-3">
       <textarea name="comment" rows="10" cols="" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
