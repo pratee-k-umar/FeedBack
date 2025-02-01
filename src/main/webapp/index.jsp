@@ -28,7 +28,11 @@
           <tbody>
             <%
               List<Comment> comments = (List<Comment>) request.getAttribute("comments");
-              if (comments != null) {
+              if (comments == null) {
+                response.sendRedirect("feedback");
+                return;
+              }
+              if (!comments.isEmpty()) {
                 for (Comment comment: comments) {
             %>
             <tr>
@@ -36,13 +40,17 @@
               <td><%= comment.getEmail() %></td>
               <td><%= comment.getPhone() %></td>
               <td><%= comment.getComment() %></td>
+              <td>
+                <a href="<%= application.getContextPath() %>/updateComment?id=<%= comment.getId() %>" class="btn btn-primary">Update</a>
+                <a href="<%= application.getContextPath() %>/deleteComment?id=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+              </td>
             </tr>
             <%
-              }
-            } else {
+                }
+              } else {
             %>
             <tr>
-              <td colspan="5">No data found.</td>
+              <td colspan="5" class="text-center">No comments found.</td>
             </tr>
             <% } %>
           </tbody>

@@ -48,7 +48,7 @@ public class FeedBackServlet extends HttpServlet {
             System.out.println(e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database Error");
         }
-        res.sendRedirect("index.jsp");
+        doGet(req, res);
     }
     // Get Servlet code
     @Override
@@ -56,7 +56,7 @@ public class FeedBackServlet extends HttpServlet {
         List<Comment> comments = new ArrayList<>();
         try (Connection conn = DBUtil.getConnection()) {
             System.out.println("Database connected...");
-            String sql = "SELECT id, email, phone, comment FROM comment";
+            String sql = "SELECT * FROM comment";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
@@ -65,7 +65,6 @@ public class FeedBackServlet extends HttpServlet {
                     String phone = resultSet.getString("phone");
                     String commentText = resultSet.getString("comment");
                     Comment comment = new Comment(id, email, phone, commentText);
-                    System.out.println("Comment: " + comment.getEmail());
                     comments.add(comment);
                 }
             } catch (SQLException e) {
@@ -95,7 +94,7 @@ public class FeedBackServlet extends HttpServlet {
             statement.executeUpdate();
             statement.close();
             conn.close();
-            res.sendRedirect("index.jsp");
+            doGet(req, res);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
